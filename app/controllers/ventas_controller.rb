@@ -25,27 +25,27 @@ class VentasController < ApplicationController
     render json: @resultado
   end
   def sector_empleado
-    @query = "select * from ventas_empleado_mesa('') order by rut_empleado asc"
+    @query = "select * from ventas_empleado_mesa('') order by venta_total desc"
     @resultado = ActiveRecord::Base.connection.execute(@query)
     render json: @resultado
   end
   def sector_empleado_rut
-    @query = "select * from ventas_empleado_mesa('"+params[:rut]+"') order by rut_empleado asc"
+    @query = "select * from ventas_empleado_mesa('"+params[:rut]+"') order by id_sector asc"
     @resultado = ActiveRecord::Base.connection.execute(@query)
     render json: @resultado
   end
   def ranking_ventas_empleados
-    @query = "select * from top_ventas_empleado('"+params[:periodo]+"',"+params[:pos]+") order by rut_empleado asc"
+    @query = "select * from top_ventas_empleado('"+params[:periodo]+"',"+params[:pos]+") order by ranking asc"
     @resultado = ActiveRecord::Base.connection.execute(@query)
     render json: @resultado
   end
   def ranking_ventas_mesas
-    @query = "select * from top_ventas_mesa('"+params[:periodo]+"',"+params[:pos]+") order by id_mesa asc"
+    @query = "select * from top_ventas_mesa('"+params[:periodo]+"',"+params[:pos]+") order by ranking asc"
     @resultado = ActiveRecord::Base.connection.execute(@query)
     render json: @resultado
   end
   def ranking_ventas_productos
-    @query = "select * from venta_productos_periodo('"+params[:periodo]+"') order by codigo_producto"
+    @query = "select * from venta_productos_periodo('"+params[:periodo]+"') order by monto_total_producto desc"
     @resultado = ActiveRecord::Base.connection.execute(@query)
     render json: @resultado
   end
